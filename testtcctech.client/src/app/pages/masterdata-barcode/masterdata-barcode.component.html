@@ -1,0 +1,96 @@
+<div class="page-container">
+  <form
+    class="form-group-custom"
+    [formGroup]="addForm"
+    (ngSubmit)="addProduct()"
+  >
+    <label for="productCode">รหัสสินค้า</label>
+
+    <input
+      type="text"
+      class="form-control"
+      id="productCode"
+      formControlName="productCode"
+      placeholder="XXXX-XXXX-XXXX-XXXX"
+      maxlength="19"
+      productCodeFormat
+    />
+
+    <button type="submit" class="btn btn-primary">Add</button>
+  </form>
+
+  <table class="table table-bordered">
+    <thead>
+      <tr>
+        <th class="text-center" scope="col">Id</th>
+        <th class="text-center" scope="col">รหัสสินค้า (16 หลัก)</th>
+        <th class="text-center" scope="col">บาร์โค้ดสินค้า</th>
+        <th class="text-center" scope="col">Action</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let product of products">
+        <td class="text-center">
+          {{ product.productId }}
+        </td>
+        <td class="text-center">
+          {{ getProductCode(product.productCode) }}
+        </td>
+        <td class="text-center">
+          <img [src]="getImg(product.productBarcode)" alt="barcode" />
+        </td>
+        <td class="text-center">
+          <button
+            type="button"
+            class="btn btn-danger"
+            data-bs-toggle="modal"
+            data-bs-target="#confirmModal"
+            (click)="setSelectedProduct(product)"
+          >
+            ลบ
+          </button>
+        </td>
+      </tr>
+
+      <tr *ngIf="products.length === 0">
+        <td class="text-center" colspan="4">ไม่พบข้อมูล</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<!-- Confirm Modal -->
+<div
+  class="modal fade"
+  id="confirmModal"
+  tabindex="-1"
+  role="dialog"
+  aria-labelledby="confirmModalLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-body">
+        ต้องการลบข้อมูล รหัสสินค้า
+        {{
+          selectedProduct ? getProductCode(selectedProduct.productCode) : ""
+        }}
+        หรือไม่ ?
+      </div>
+      <div class="modal-footer">
+        <button
+          type="button"
+          class="btn btn-primary"
+          data-bs-dismiss="modal"
+          (click)="deleteProduct()"
+        >
+          ตกลง
+        </button>
+
+        <button type="button" class="btn btn-danger" data-bs-dismiss="modal">
+          ยกเลิก
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

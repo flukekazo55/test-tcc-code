@@ -1,0 +1,2 @@
+C:\Users\fluke\source\repos\TestTCCtech\testtcctech.client\obj\Debug\testtcctech.client.esproj.CoreCompileInputs.cache
+C:\Users\fluke\OneDrive\Desktop\mycode\test-tcc-code\testtcctech.client\obj\Debug\testtcctech.client.esproj.CoreCompileInputs.cache
